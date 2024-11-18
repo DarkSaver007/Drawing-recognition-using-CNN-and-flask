@@ -10,6 +10,8 @@ import base64
 import io
 import os
 
+app = Flask(__name__)
+
 # Define unpack function for deserialization
 def unpack(model, training_config, weights):
     restored_model = deserialize(model)
@@ -121,3 +123,7 @@ def results():
 # Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+import os
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
