@@ -1,36 +1,12 @@
-# Import necessary libraries
 import pickle
 import numpy as np
 from flask import Flask, request, jsonify, render_template_string, redirect, url_for
 from keras.models import Model
-from tensorflow.python.keras.layers import deserialize
-from tensorflow.python.keras.saving import saving_utils
+from model_utils import make_keras_picklable  # Import the function from model_utils
 from PIL import Image
 import base64
 import io
 import os
-
-# Define unpack function for deserialization
-def unpack(model, training_config, weights):
-    restored_model = deserialize(model)
-    if training_config is not None:
-        restored_model.compile(
-            **saving_utils.compile_args_from_training_config(training_config)
-        )
-    restored_model.set_weights(weights)
-    return restored_model
-
-# Hotfix function to make Keras model pickleable
-def make_keras_picklable():
-    def __reduce__(self):
-        model_metadata = saving_utils.model_metadata(self)
-        training_config = model_metadata.get("training_config", None)
-        model = serialize(self)
-        weights = self.get_weights()
-        return (unpack, (model, training_config, weights))
-
-    cls = Model
-    cls.__reduce__ = __reduce__
 
 # Run the hotfix function to enable pickling
 make_keras_picklable()
