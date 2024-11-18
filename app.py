@@ -10,7 +10,6 @@ import base64
 import io
 import os
 
-
 # Define unpack function for deserialization
 def unpack(model, training_config, weights):
     restored_model = deserialize(model)
