@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing App</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles_draw.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='draw.js') }}"></script>
+</head>
+<body>
+    <header>Drawing App</header>
+    
+    <canvas id="canvas" name="draw" width="400" height="400"></canvas>
+    
+    <button id="predict" onclick="return save();">Predict</button>
+
+    <script type="text/javascript">
+      // Draw canvas setup
+      $(document).ready(function() {
+          drawCanvas();
+      });
+
+      // Save and send drawing data as base64
+      function save() {
+          var image = new Image();
+          image.src = canvas.toDataURL();
+          
+          // Prepare data to send as JSON
+          var data = {
+              image: image.src
+          };
+
+          // Send via fetch to Flask
+          fetch('/predict', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(result => {
+              window.location.href = '/results?prediction=' + result.prediction;
+          })
+          .catch(error => console.error('Error:', error));
+
+          return false; // Prevent default form submission
+      }
+    </script>
+</body>
+</html>

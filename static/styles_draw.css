@@ -1,0 +1,109 @@
+/* General Body Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f8f7; /* Light background for a clean look */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Style */
+header {
+    font-size: 3.5em;
+    font-weight: 700;
+    color: #000000; /* Black color */
+    margin-top: 40px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+    padding-bottom: 20px; /* Adds space below header */
+}
+
+/* Canvas Styling */
+#canvas {
+    border: 3px solid #3e85ffbe; 
+    background-color: #fff;
+    margin: 30px auto;
+    cursor: crosshair;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    max-width: 90%;
+    padding: 10px;
+}
+
+/* Button Style */
+#predict {
+    font-size: 1.8em;
+    padding: 15px 30px;
+    background-color: #FF6347; /* Red color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 40px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+#predict:hover {
+    background-color: #D84B38; /* Darker Red */
+    transform: scale(1.1);
+}
+
+/* Container Styles */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers items horizontally */
+    justify-content: center;
+    background-color: #87CEEB; /* Sky Blue */
+}
+
+/* Results Styling */
+.results {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    text-align: center;
+}
+
+.results h2 {
+    color: #000000; /* Black color */
+    font-size: 2em;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.results span {
+    color: #FF6347; /* Red color */
+    font-size: 2.2em;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        font-size: 2.8em;
+    }
+
+    #canvas {
+        width: 95%;
+        height: 300px;
+    }
+
+    #predict {
+        font-size: 1.5em;
+        padding: 10px 20px;
+    }
+
+    .results {
+        width: 90%;
+    }
+}
