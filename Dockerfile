@@ -20,4 +20,4 @@ ENV FLASK_ENV=production
 EXPOSE 5000
 
 # Command to run the application (assuming your app is named `app.py` and Flask instance is `app`)
-CMD ["gunicorn", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
