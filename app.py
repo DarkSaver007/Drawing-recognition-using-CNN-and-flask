@@ -2,7 +2,7 @@ import pickle
 import numpy as np
 from flask import Flask, request, jsonify, render_template_string, redirect, url_for
 from keras.models import Model
-from model_utils import make_keras_picklable  # Import the function from model_utils
+from model_utils import make_keras_picklable, unpack  # Import functions from model_utils
 from PIL import Image
 import base64
 import io
@@ -30,11 +30,12 @@ def preprocess_image(img_data):
     img = np.expand_dims(img, axis=0)  # Add batch dimension
     return img
 
-# Load the trained model (use pickle)
+# Load the trained model (use pickle and unpack)
 def load_pickled_model(filename):
     try:
         with open(filename, 'rb') as f:
-            model = pickle.load(f)
+            model_metadata = pickle.load(f)  # Model metadata
+            model = unpack(*model_metadata)  # Unpack the model using the `unpack` function
             print("Pickled model loaded successfully!")
             return model
     except Exception as e:
@@ -63,14 +64,13 @@ def predict():
     
     # Get model predictions if the model is loaded
     if model:
-        prediction = model.predict(img)
-        predicted_class_index = np.argmax(prediction, axis=1)[0]
-        
-        # Get the class name corresponding to the predicted index
-        predicted_class_name = class_names[predicted_class_index]
-        
-        # Return the prediction as a JSON response with the class name
-        return jsonify({'prediction': predicted_class_name})
+        try:
+            prediction = model.predict(img)
+            predicted_class_index = np.argmax(prediction, axis=1)[0]
+            predicted_class_name = class_names[predicted_class_index]
+            return jsonify({'prediction': predicted_class_name})
+        except Exception as e:
+            return jsonify({'error': f'Prediction error: {e}'}), 500
     else:
         return jsonify({'error': 'Model is not loaded'}), 500
 
@@ -96,5 +96,4 @@ def results():
 
 # Run the Flask app
 if __name__ == '__main__':
-    import os
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
