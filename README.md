@@ -200,8 +200,14 @@ I am an AI Enthusiast and  Data science & ML practitioner
 
 
 
-[1]: https://github.com/DarkSaver007
-[2]: www.linkedin.com/in/mohammed-aadhil-144245259
+<h2>Connect with Me</h2>
+<p>Find me on LinkedIn: 
+    <a href="https://linkedin.com/in/mohammed-aadhil-144245259" target="_blank">
+        <img src="https://github.com/user-attachments/assets/a388191c-6399-4689-b05f-8e8fbf565b76" width="20" height="20" alt="LinkedIn Logo">
+        Mohammed Aadhil
+    </a>
+</p>
+
 
 
 
